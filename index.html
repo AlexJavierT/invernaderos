@@ -1,0 +1,758 @@
+Copia y pega este código completo en tu archivo **`index.html`** (o `indexTomate.html` en Visual Studio Code), asegurándote de guardarlo en la misma carpeta donde tienes tu imagen **`invernadero.png`**:
+
+```html
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Trabaja con Nosotros | Invernaderos de Tomate - San Juan del Inca (Pimampiro)</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Favicon con icono de invernadero multitúnel -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23059669'/%3E%3Cpath d='M8 44V26c0-5 4-9 9-9s9 4 9 9v18H8z' fill='%23E0F2FE' stroke='%23065F46' stroke-width='2.5'/%3E%3Cpath d='M23 44V26c0-5 4-9 9-9s9 4 9 9v18H23z' fill='%23FFFFFF' stroke='%23065F46' stroke-width='2.5'/%3E%3Cpath d='M38 44V26c0-5 4-9 9-9s9 4 9 9v18H38z' fill='%23E0F2FE' stroke='%23065F46' stroke-width='2.5'/%3E%3Crect x='28' y='31' width='8' height='13' rx='1.5' fill='%23065F46'/%3E%3Ccircle cx='31' cy='36' r='1.8' fill='%23EF4444'/%3E%3Ccircle cx='33.5' cy='39.5' r='1.6' fill='%23F97316'/%3E%3C/svg%3E">
+
+  <style>
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background-color: #fbfaf5;
+      color: #1f2937;
+    }
+
+    .glass-nav {
+      background: rgba(255, 255, 255, 0.94);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+
+    .hero-bg {
+      background: linear-gradient(145deg, #064e3b 0%, #065f46 52%, #0f766e 100%);
+    }
+
+    .task-chip.selected {
+      background: linear-gradient(135deg, #ef4444, #f97316);
+      border-color: #ea580c;
+      color: #ffffff;
+      box-shadow: 0 8px 18px -4px rgba(239, 68, 68, 0.35);
+      transform: translateY(-1px);
+    }
+
+    .task-chip.selected .chip-check {
+      background-color: #ffffff;
+      border-color: #ffffff;
+      color: #ea580c;
+    }
+
+    .exp-radio:checked + .exp-card {
+      border-color: #059669;
+      background-color: #ecfdf5;
+      box-shadow: 0 6px 16px -4px rgba(5, 150, 105, 0.2);
+    }
+
+    .exp-radio:checked + .exp-card .exp-dot {
+      border-color: #059669;
+      background-color: #059669;
+    }
+
+    @keyframes pulseHeat {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.03); }
+    }
+    .heat-badge {
+      animation: pulseHeat 3s infinite ease-in-out;
+    }
+  </style>
+</head>
+<body class="antialiased selection:bg-orange-200 selection:text-orange-950">
+
+  <!-- Barra de Navegación Limpia -->
+  <header class="sticky top-0 z-50 glass-nav border-b border-emerald-950/10">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-4">
+      <a href="#" class="flex items-center gap-3 min-w-0">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-emerald-500 to-teal-700 text-white flex items-center justify-center shadow-md shrink-0">
+          <!-- Icono SVG de Invernadero Multitúnel -->
+          <svg class="w-7 h-7" viewBox="0 0 64 64" fill="none">
+            <path d="M8 48V26c0-5.5 4.2-10 9.5-10S27 20.5 27 26v22H8z" fill="#E0F2FE" stroke="#064E3B" stroke-width="2.5"/>
+            <path d="M22.5 48V26c0-5.5 4.2-10 9.5-10s9.5 4.5 9.5 10v22h-19z" fill="#FFFFFF" stroke="#064E3B" stroke-width="2.5"/>
+            <path d="M37 48V26c0-5.5 4.2-10 9.5-10S56 20.5 56 26v22H37z" fill="#E0F2FE" stroke="#064E3B" stroke-width="2.5"/>
+            <path d="M8 31h48M8 39h48" stroke="#064E3B" stroke-width="1.5" stroke-opacity="0.3"/>
+            <rect x="27.5" y="33" width="9" height="15" rx="1.5" fill="#064E3B"/>
+            <circle cx="30.5" cy="38.5" r="2" fill="#EF4444"/>
+            <circle cx="33.8" cy="42.5" r="1.8" fill="#F97316"/>
+          </svg>
+        </div>
+        <div class="truncate">
+          <span class="font-extrabold text-stone-900 tracking-tight block leading-none text-base sm:text-lg">Invernaderos El Inca</span>
+          <span class="text-xs text-emerald-700 font-bold tracking-wide flex items-center gap-1 mt-1 truncate">
+            <svg class="w-3 h-3 text-rose-500 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"/></svg>
+            Comunidad San Juan del Inca • Pimampiro
+          </span>
+        </div>
+      </a>
+
+      <nav class="hidden md:flex items-center gap-7 text-sm font-bold text-stone-600">
+        <a href="#clima" class="hover:text-emerald-700 transition">Clima (29 °C)</a>
+        <a href="#labores" class="hover:text-emerald-700 transition">Labores</a>
+        <a href="#mapa" class="hover:text-emerald-700 transition">Ubicación</a>
+      </nav>
+
+      <a href="#postular" class="bg-gradient-to-r from-rose-500 to-orange-500 hover:from-rose-600 hover:to-orange-600 text-white text-xs sm:text-sm font-extrabold px-4 sm:px-5 py-2.5 rounded-full shadow-md shadow-rose-500/20 transition transform active:scale-95 shrink-0">
+        Postular ahora →
+      </a>
+    </div>
+  </header>
+
+  <!-- Hero Principal con Mucho Aire y Una Sola Foto Fija -->
+  <section class="hero-bg text-white py-14 sm:py-20 lg:py-24">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 grid lg:grid-cols-12 gap-10 lg:gap-12 items-center">
+      
+      <!-- Columna Izquierda: Información Principal -->
+      <div class="lg:col-span-6 space-y-6">
+        <div class="inline-flex items-center gap-2 bg-amber-400/20 border border-amber-300/35 px-4 py-1.5 rounded-full text-xs sm:text-sm font-bold text-amber-200">
+          <span class="w-2 h-2 rounded-full bg-amber-300 animate-ping"></span>
+          Comunidad San Juan del Inca • El Inca, Pimampiro, Imbabura
+        </div>
+
+        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-[1.08]">
+          Trabaja en Nuestros Invernaderos de <span class="text-transparent bg-clip-text bg-gradient-to-r from-amber-300 via-orange-300 to-rose-300">Tomate</span>
+        </h1>
+
+        <p class="text-base sm:text-lg text-emerald-50/90 leading-relaxed">
+          Buscamos personal responsable en la <strong>Comunidad San Juan del Inca (El Inca, Pimampiro, Imbabura)</strong> que conozca la realidad del trabajo bajo cubierta: <strong>cosechar, deñavitar (desnabar) y poner abono</strong> a <strong class="text-amber-300">29 °C de calor constante</strong>.
+        </p>
+
+        <!-- Único Bloque de Contacto Directo -->
+        <div class="bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-4 sm:p-5 flex flex-wrap items-center justify-between gap-4">
+          <div class="flex items-center gap-3.5">
+            <div class="w-11 h-11 rounded-xl bg-amber-400 text-stone-950 flex items-center justify-center shrink-0 shadow-md">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+            </div>
+            <div>
+              <span class="text-[11px] uppercase tracking-wider text-amber-200 font-bold block">Teléfono / WhatsApp Directo</span>
+              <span class="text-lg sm:text-xl font-extrabold text-white tracking-tight">+593 99 779 2661</span>
+            </div>
+          </div>
+          <div class="flex items-center gap-2.5">
+            <a href="tel:+593997792661" class="bg-white hover:bg-stone-100 text-stone-900 font-bold text-xs sm:text-sm px-4 py-2.5 rounded-xl transition">
+              Llamar
+            </a>
+            <a href="https://wa.me/593997792661?text=Hola%2C%20quisiera%20informaci%C3%B3n%20sobre%20el%20trabajo%20en%20los%20invernaderos%20de%20tomate%20en%20San%20Juan%20del%20Inca." target="_blank" rel="noopener noreferrer" class="bg-emerald-400 hover:bg-emerald-300 text-stone-950 font-extrabold text-xs sm:text-sm px-4 py-2.5 rounded-xl transition">
+              WhatsApp
+            </a>
+          </div>
+        </div>
+
+        <!-- Botones de Acción -->
+        <div class="flex flex-col sm:flex-row gap-3.5 pt-1">
+          <a href="#postular" class="inline-flex items-center justify-center gap-2.5 bg-gradient-to-r from-rose-500 to-orange-500 hover:from-rose-600 hover:to-orange-600 text-white font-extrabold px-7 py-4 rounded-2xl shadow-xl shadow-rose-950/30 transition transform active:scale-95 text-base">
+            <span>Llenar Ficha y Postular</span>
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+          </a>
+          <a href="#mapa" class="inline-flex items-center justify-center gap-2 bg-white/15 hover:bg-white/25 border border-white/25 text-white font-bold px-6 py-4 rounded-2xl transition text-base">
+            <span>Ver ubicación en el mapa</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Columna Derecha: Tarjeta Única con la Imagen invernadero.png -->
+      <div class="lg:col-span-6">
+        <div class="bg-white/10 backdrop-blur-md border border-white/20 p-4 sm:p-5 rounded-3xl shadow-2xl space-y-4">
+          <div class="flex items-center justify-between px-1">
+            <span class="text-xs font-extrabold uppercase tracking-wider text-amber-300 flex items-center gap-2">
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 21V9l9-6 9 6v12H3z"/><path d="M9 21v-7h6v7"/></svg>
+              Nuestros Invernaderos
+            </span>
+            <span class="heat-badge bg-gradient-to-r from-rose-500 to-orange-500 text-white text-xs font-extrabold px-3 py-1 rounded-full shadow">
+              🌡️ 29 °C interior
+            </span>
+          </div>
+
+          <!-- Única Imagen Fija -->
+          <div class="relative rounded-2xl overflow-hidden border border-white/25 bg-emerald-950 shadow-inner aspect-[16/10]">
+            <img src="invernadero.png" alt="Invernaderos de tomate en San Juan del Inca, Pimampiro" class="w-full h-full object-cover block" />
+            <div class="absolute bottom-3 left-3 bg-stone-950/75 backdrop-blur-sm text-white text-xs font-bold px-3.5 py-1.5 rounded-full flex items-center gap-1.5">
+              <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+              El Inca • Pimampiro, Imbabura
+            </div>
+          </div>
+
+          <div class="grid grid-cols-3 gap-2.5 pt-1 text-center">
+            <div class="bg-black/20 rounded-xl py-2.5 px-2">
+              <span class="block text-[10px] uppercase tracking-wider text-emerald-200 font-bold">Calor Real</span>
+              <span class="font-extrabold text-amber-300 text-sm sm:text-base">29 °C</span>
+            </div>
+            <div class="bg-black/20 rounded-xl py-2.5 px-2">
+              <span class="block text-[10px] uppercase tracking-wider text-emerald-200 font-bold">Cultivo</span>
+              <span class="font-extrabold text-white text-sm sm:text-base">Tomate</span>
+            </div>
+            <div class="bg-black/20 rounded-xl py-2.5 px-2">
+              <span class="block text-[10px] uppercase tracking-wider text-emerald-200 font-bold">Sector</span>
+              <span class="font-extrabold text-white text-sm sm:text-base">San Juan del Inca</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Sección 1: La Realidad del Clima (29 °C) -->
+  <section id="clima" class="py-16 sm:py-24 px-4 sm:px-6 max-w-6xl mx-auto">
+    <div class="bg-white rounded-3xl border border-stone-200 shadow-lg p-6 sm:p-10 lg:p-12">
+      <div class="grid lg:grid-cols-12 gap-10 items-center">
+        <div class="lg:col-span-6 space-y-4">
+          <span class="inline-block text-xs font-extrabold uppercase tracking-wider text-rose-600 bg-rose-50 border border-rose-200 px-3.5 py-1.5 rounded-full">
+            Hablando claro desde el inicio
+          </span>
+          <h2 class="text-2xl sm:text-4xl font-extrabold text-stone-900 tracking-tight leading-tight">
+            Adentro del plástico se trabaja a 29 °C de calor
+          </h2>
+          <p class="text-stone-600 text-base leading-relaxed">
+            En <strong>San Juan del Inca (Pimampiro)</strong>, afuera corre aire fresco de montaña, pero dentro de las naves de invernadero el plástico retiene el calor a <strong>29 °C constantes</strong> para que la planta de tomate produzca bien.
+          </p>
+          <p class="text-stone-600 text-base leading-relaxed">
+            No queremos que vengas sin saberlo: buscamos personas acostumbradas al calor húmedo bajo cubierta y con buen ritmo de trabajo.
+          </p>
+        </div>
+
+        <!-- Comparador Térmico Visual -->
+        <div class="lg:col-span-6 bg-gradient-to-br from-amber-50 via-orange-50 to-rose-50 rounded-2xl p-6 sm:p-8 border border-orange-200/80 space-y-6">
+          <div>
+            <div class="flex justify-between items-center text-sm font-bold text-stone-700 mb-2">
+              <span>🌤️ Afuera en la Comunidad San Juan del Inca</span>
+              <span class="text-emerald-700 font-extrabold">~18 °C (Fresco)</span>
+            </div>
+            <div class="w-full h-3.5 bg-white rounded-full overflow-hidden border border-stone-200">
+              <div class="h-full bg-emerald-500 rounded-full" style="width: 52%;"></div>
+            </div>
+          </div>
+
+          <div>
+            <div class="flex justify-between items-center text-sm font-bold text-stone-900 mb-2">
+              <span>🔥 Adentro del Invernadero de Tomate</span>
+              <span class="text-rose-600 font-extrabold text-base">29 °C (Calor Constante)</span>
+            </div>
+            <div class="w-full h-5 bg-white rounded-full overflow-hidden border border-rose-200 shadow-inner">
+              <div class="h-full bg-gradient-to-r from-amber-400 via-orange-500 to-rose-600 rounded-full" style="width: 92%;"></div>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-2 gap-3 pt-2 text-xs text-stone-700 font-semibold">
+            <div class="bg-white/90 p-3.5 rounded-xl border border-orange-100">
+              💧 <strong>Hidratación:</strong> Lleva siempre tu termo de agua fresca para los surcos.
+            </div>
+            <div class="bg-white/90 p-3.5 rounded-xl border border-orange-100">
+              👕 <strong>Ropa ligera:</strong> Camiseta manga larga fresca, gorra y calzado cómodo.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sección 2: Todas las Labores Dentro del Invernadero -->
+  <section id="labores" class="py-14 sm:py-20 px-4 sm:px-6 max-w-6xl mx-auto">
+    <div class="text-center max-w-2xl mx-auto mb-12 space-y-3">
+      <span class="inline-block text-xs font-extrabold uppercase tracking-wider text-emerald-700 bg-emerald-100 px-3.5 py-1.5 rounded-full">
+        Trabajo diario en los surcos
+      </span>
+      <h2 class="text-2xl sm:text-4xl font-extrabold text-stone-900 tracking-tight">
+        Lo que se hace dentro del invernadero
+      </h2>
+      <p class="text-stone-600 text-base">
+        Si ya conoces estas 8 labores del cultivo de tomate bajo cubierta en Imbabura, este puesto es para ti.
+      </p>
+    </div>
+
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+      <!-- Labor 1 -->
+      <div class="bg-white rounded-3xl p-6 border border-stone-200 hover:border-rose-300 shadow-sm hover:shadow-lg transition">
+        <div class="w-14 h-14 rounded-2xl bg-rose-100 text-rose-600 flex items-center justify-center mb-4">
+          <svg class="w-8 h-8" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="4" y="15" width="24" height="12" rx="2.5" fill="#FFE4E6"/>
+            <path d="M8 19h16M8 23h16"/>
+            <circle cx="11" cy="12" r="4" fill="#EF4444" stroke="#991B1B"/>
+            <circle cx="17" cy="11" r="4.2" fill="#F97316" stroke="#9A3412"/>
+            <circle cx="22" cy="13" r="3.8" fill="#EF4444" stroke="#991B1B"/>
+          </svg>
+        </div>
+        <h3 class="text-lg font-extrabold text-stone-900 mb-2">1. Cosecha y Selección</h3>
+        <p class="text-sm text-stone-600 leading-relaxed">
+          Recolección cuidadosa en punto pintón y maduro, sin golpear el fruto ni maltratar los racimos, llenando gavetas limpias.
+        </p>
+      </div>
+
+      <!-- Labor 2 -->
+      <div class="bg-white rounded-3xl p-6 border border-stone-200 hover:border-emerald-300 shadow-sm hover:shadow-lg transition">
+        <div class="w-14 h-14 rounded-2xl bg-emerald-100 text-emerald-700 flex items-center justify-center mb-4">
+          <svg class="w-8 h-8" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M16 28V6" stroke="#059669" stroke-width="2.5" stroke-linecap="round"/>
+            <path d="M16 17c4-3 7-3 9-2" stroke="#10B981" stroke-width="2" stroke-linecap="round"/>
+            <circle cx="9" cy="10" r="3" fill="#D1FAE5"/>
+            <circle cx="9" cy="22" r="3" fill="#D1FAE5"/>
+            <path d="M11.5 11.5l10 9M11.5 20.5l10-9" stroke="#374151" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <h3 class="text-lg font-extrabold text-stone-900 mb-2">2. Deñavitar / Desnabar</h3>
+        <p class="text-sm text-stone-600 leading-relaxed">
+          Retiro oportuno de brotes axilares (chupones/nabos) y despunte de guía para que la fuerza vaya directo al engrose del tomate.
+        </p>
+      </div>
+
+      <!-- Labor 3 -->
+      <div class="bg-white rounded-3xl p-6 border border-stone-200 hover:border-amber-300 shadow-sm hover:shadow-lg transition">
+        <div class="w-14 h-14 rounded-2xl bg-amber-100 text-amber-700 flex items-center justify-center mb-4">
+          <svg class="w-8 h-8" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M7 9l2-3h10l2 3v16a2 2 0 01-2 2H9a2 2 0 01-2-2V9z" fill="#FEF3C7"/>
+            <path d="M11 16h6M14 13v6" stroke="#D97706" stroke-width="2" stroke-linecap="round"/>
+            <path d="M25 11s3 3.5 3 5.5a3 3 0 01-6 0c0-2 3-5.5 3-5.5z" fill="#38BDF8" stroke="#0284C7"/>
+          </svg>
+        </div>
+        <h3 class="text-lg font-extrabold text-stone-900 mb-2">3. Poner Abono y Riego</h3>
+        <p class="text-sm text-stone-600 leading-relaxed">
+          Aplicación medida de abono granulado u orgánico al pie de la mata y revisión de goteros y mangueras de fertirriego.
+        </p>
+      </div>
+
+      <!-- Labor 4 -->
+      <div class="bg-white rounded-3xl p-6 border border-stone-200 hover:border-teal-300 shadow-sm hover:shadow-lg transition">
+        <div class="w-14 h-14 rounded-2xl bg-teal-100 text-teal-700 flex items-center justify-center mb-4">
+          <svg class="w-8 h-8" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M16 4v24" stroke="#D97706" stroke-width="2" stroke-dasharray="3 2"/>
+            <path d="M16 27c-3-4 3-7 0-11s3-7 0-11" stroke="#059669" stroke-width="2.5" stroke-linecap="round"/>
+            <circle cx="13" cy="14" r="2.2" fill="#EF4444" stroke="none"/>
+            <circle cx="19" cy="20" r="2.2" fill="#EF4444" stroke="none"/>
+          </svg>
+        </div>
+        <h3 class="text-lg font-extrabold text-stone-900 mb-2">4. Tutorado y Descuelgue</h3>
+        <p class="text-sm text-stone-600 leading-relaxed">
+          Enredar y guiar el tallo en la piola, colocar anillos de sujeción y descolgar las matas conforme crecen en altura.
+        </p>
+      </div>
+
+      <!-- Labor 5 -->
+      <div class="bg-white rounded-3xl p-6 border border-stone-200 hover:border-lime-300 shadow-sm hover:shadow-lg transition">
+        <div class="w-14 h-14 rounded-2xl bg-lime-100 text-lime-700 flex items-center justify-center mb-4">
+          <svg class="w-8 h-8" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M8 22c0-7 6-12 15-12-1 8-6 13-15 12z" fill="#ECFCCB" stroke="#4D7C0F"/>
+            <path d="M8 22L20 12" stroke="#4D7C0F" stroke-width="1.8" stroke-linecap="round"/>
+            <path d="M6 27h20" stroke="#78716C" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <h3 class="text-lg font-extrabold text-stone-900 mb-2">5. Deshoje y Limpieza</h3>
+        <p class="text-sm text-stone-600 leading-relaxed">
+          Quitar hojas viejas o enfermas de la parte baja para que circule el aire y sacar todo residuo fuera del invernadero.
+        </p>
+      </div>
+
+      <!-- Labor 6 -->
+      <div class="bg-white rounded-3xl p-6 border border-stone-200 hover:border-yellow-300 shadow-sm hover:shadow-lg transition">
+        <div class="w-14 h-14 rounded-2xl bg-yellow-100 text-yellow-700 flex items-center justify-center mb-4">
+          <svg class="w-8 h-8" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="16" cy="16" r="4" fill="#F59E0B" stroke="#B45309"/>
+            <path d="M16 6v4M16 22v4M6 16h4M22 16h4M9 9l3 3M20 20l3 3M23 9l-3 3M12 20l-3 3" stroke="#EAB308" stroke-width="2.5" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <h3 class="text-lg font-extrabold text-stone-900 mb-2">6. Polinización de Flores</h3>
+        <p class="text-sm text-stone-600 leading-relaxed">
+          Vibración suave de los racimos florales en las horas de calor para asegurar el cuaje completo y frutos parejos.
+        </p>
+      </div>
+
+      <!-- Labor 7 -->
+      <div class="bg-white rounded-3xl p-6 border border-stone-200 hover:border-sky-300 shadow-sm hover:shadow-lg transition">
+        <div class="w-14 h-14 rounded-2xl bg-sky-100 text-sky-700 flex items-center justify-center mb-4">
+          <svg class="w-8 h-8" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="6" y="6" width="10" height="14" rx="1.5" fill="#FDE047" stroke="#CA8A04"/>
+            <rect x="13" y="9" width="10" height="14" rx="1.5" fill="#38BDF8" stroke="#0284C7"/>
+            <circle cx="22" cy="22" r="4" fill="#FFFFFF" stroke="#1E293B"/>
+            <path d="M25 25l3 3" stroke="#1E293B" stroke-width="2.2" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <h3 class="text-lg font-extrabold text-stone-900 mb-2">7. Control de Plagas</h3>
+        <p class="text-sm text-stone-600 leading-relaxed">
+          Revisión temprana de mosca blanca, ácaros o polilla en las hojas y cambio de trampas cromáticas amarillas y azules.
+        </p>
+      </div>
+
+      <!-- Labor 8 -->
+      <div class="bg-white rounded-3xl p-6 border border-stone-200 hover:border-orange-300 shadow-sm hover:shadow-lg transition">
+        <div class="w-14 h-14 rounded-2xl bg-orange-100 text-orange-600 flex items-center justify-center mb-4">
+          <svg class="w-8 h-8" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="5" y="7" width="14" height="18" rx="2" fill="#FFEDD5" stroke="#EA580C"/>
+            <path d="M5 12h14M5 17h14" stroke="#EA580C" stroke-width="1.5"/>
+            <path d="M24 9v11" stroke="#EF4444" stroke-width="3" stroke-linecap="round"/>
+            <circle cx="24" cy="22" r="3" fill="#EF4444" stroke="none"/>
+          </svg>
+        </div>
+        <h3 class="text-lg font-extrabold text-stone-900 mb-2">8. Cortinas y Clima (29 °C)</h3>
+        <p class="text-sm text-stone-600 leading-relaxed">
+          Subir y bajar cortinas laterales y cenitales según el sol y el viento para mantener la temperatura ideal del cultivo.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sección 3: Mapa Interactivo de la Comunidad San Juan del Inca -->
+  <section id="mapa" class="py-14 sm:py-20 px-4 sm:px-6 max-w-6xl mx-auto">
+    <div class="bg-white rounded-3xl border border-stone-200 shadow-lg overflow-hidden">
+      <div class="p-6 sm:p-10 border-b border-stone-100 flex flex-col lg:flex-row lg:items-center justify-between gap-6">
+        <div class="space-y-1.5">
+          <span class="text-xs font-extrabold uppercase tracking-wider text-emerald-700">Ubicación exacta</span>
+          <h2 class="text-2xl sm:text-3xl font-extrabold text-stone-900">Comunidad San Juan del Inca (Pimampiro)</h2>
+          <p class="text-sm text-stone-600">El Inca • Cantón Pimampiro, Provincia de Imbabura, Ecuador (`0.344156, -77.960175`)</p>
+        </div>
+
+        <div class="flex flex-wrap items-center gap-3">
+          <div class="inline-flex rounded-xl bg-stone-100 p-1 border border-stone-200">
+            <button type="button" id="btnSatelite" onclick="cambiarVistaMapa('k')" class="px-3.5 py-2 rounded-lg text-xs font-extrabold bg-emerald-600 text-white shadow-sm transition">
+              🛰️ Vista Satélite
+            </button>
+            <button type="button" id="btnMapa" onclick="cambiarVistaMapa('m')" class="px-3.5 py-2 rounded-lg text-xs font-extrabold text-stone-600 hover:text-stone-900 transition">
+              🗺️ Mapa Vial
+            </button>
+          </div>
+
+          <a href="https://www.google.com/maps/place/San+Juan+del+Inca/@0.3612745,-77.9477485,14.16z/data=!4m6!3m5!1s0x8e2a2164cd915b01:0x253087d88ffa8c9e!8m2!3d0.3441558!4d-77.9601746!16s%2Fg%2F11m9ygk6g3?entry=ttu" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 bg-stone-900 hover:bg-stone-800 text-white text-xs sm:text-sm font-bold px-4 py-2.5 rounded-xl transition">
+            <span>Abrir en Google Maps</span>
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="relative w-full h-[360px] sm:h-[430px] bg-stone-200">
+        <iframe
+          id="iframeMapaInca"
+          title="Mapa de la Comunidad San Juan del Inca en Pimampiro, Imbabura"
+          src="https://maps.google.com/maps?q=0.3441558,-77.9601746&t=k&z=15&output=embed"
+          class="w-full h-full border-0"
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade">
+        </iframe>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sección 4: Ficha de Postulación -->
+  <section id="postular" class="py-14 sm:py-24 px-4 sm:px-6 max-w-4xl mx-auto">
+    <div class="bg-white rounded-3xl border border-stone-200 shadow-xl overflow-hidden">
+      <div class="bg-gradient-to-r from-emerald-800 via-emerald-700 to-teal-700 px-6 sm:px-10 py-8 sm:py-10 text-white">
+        <span class="inline-block text-xs font-extrabold uppercase tracking-wider bg-amber-400 text-stone-950 px-3 py-1 rounded-full mb-3">
+          Paso final • Sin papeleos complicados
+        </span>
+        <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight">Ficha de Postulación Agrícola</h2>
+        <p class="text-sm sm:text-base text-emerald-100 mt-1.5">
+          Completa tus datos reales. Al finalizar, podrás enviar tu ficha directamente por WhatsApp al <strong>+593 99 779 2661</strong>.
+        </p>
+      </div>
+
+      <form id="fichaPostulacion" class="p-6 sm:p-10 space-y-8" novalidate>
+        
+        <!-- Datos Personales -->
+        <div class="space-y-4">
+          <h3 class="text-sm font-extrabold uppercase tracking-wider text-emerald-800 flex items-center gap-2">
+            <span class="w-6 h-6 rounded-full bg-emerald-100 text-emerald-800 inline-flex items-center justify-center text-xs">1</span>
+            Tus Datos Personales
+          </h3>
+
+          <div class="grid sm:grid-cols-2 gap-4">
+            <div>
+              <label for="nombres" class="block text-sm font-bold text-stone-800 mb-1.5">Nombres y Apellidos *</label>
+              <input type="text" id="nombres" required placeholder="Ej. Juan Carlos Morales" class="w-full rounded-xl border border-stone-300 bg-stone-50/70 px-4 py-3.5 text-sm font-medium focus:bg-white focus:border-emerald-600 focus:ring-2 focus:ring-emerald-600/20 outline-none transition">
+            </div>
+
+            <div>
+              <label for="telefono" class="block text-sm font-bold text-stone-800 mb-1.5">Número de Celular / WhatsApp *</label>
+              <input type="tel" id="telefono" required placeholder="Ej. 0991234567" class="w-full rounded-xl border border-stone-300 bg-stone-50/70 px-4 py-3.5 text-sm font-medium focus:bg-white focus:border-emerald-600 focus:ring-2 focus:ring-emerald-600/20 outline-none transition">
+            </div>
+
+            <div>
+              <label for="cedula" class="block text-sm font-bold text-stone-800 mb-1.5">Cédula de Identidad *</label>
+              <input type="text" id="cedula" maxlength="10" required placeholder="10 dígitos" class="w-full rounded-xl border border-stone-300 bg-stone-50/70 px-4 py-3.5 text-sm font-medium focus:bg-white focus:border-emerald-600 focus:ring-2 focus:ring-emerald-600/20 outline-none transition">
+            </div>
+
+            <div>
+              <label for="sector" class="block text-sm font-bold text-stone-800 mb-1.5">Comunidad o Sector donde vives *</label>
+              <input type="text" id="sector" required placeholder="Ej. San Juan del Inca, Pimampiro, Chugá..." class="w-full rounded-xl border border-stone-300 bg-stone-50/70 px-4 py-3.5 text-sm font-medium focus:bg-white focus:border-emerald-600 focus:ring-2 focus:ring-emerald-600/20 outline-none transition">
+            </div>
+          </div>
+        </div>
+
+        <!-- Experiencia -->
+        <div class="space-y-4">
+          <h3 class="text-sm font-extrabold uppercase tracking-wider text-emerald-800 flex items-center gap-2">
+            <span class="w-6 h-6 rounded-full bg-emerald-100 text-emerald-800 inline-flex items-center justify-center text-xs">2</span>
+            Experiencia en Invernaderos de Tomate *
+          </h3>
+
+          <div class="grid sm:grid-cols-3 gap-3">
+            <label class="cursor-pointer">
+              <input type="radio" name="experiencia" value="Más de 2 años en tomate bajo invernadero" class="exp-radio sr-only" checked>
+              <div class="exp-card rounded-2xl border-2 border-stone-200 p-4 transition h-full">
+                <div class="flex items-center justify-between mb-1.5">
+                  <span class="font-extrabold text-sm text-stone-900">Con mucha experiencia</span>
+                  <span class="exp-dot w-4 h-4 rounded-full border-2 border-stone-300"></span>
+                </div>
+                <p class="text-xs text-stone-600">Más de 2 años trabajando dentro de invernaderos de tomate.</p>
+              </div>
+            </label>
+
+            <label class="cursor-pointer">
+              <input type="radio" name="experiencia" value="De 6 meses a 2 años en invernadero" class="exp-radio sr-only">
+              <div class="exp-card rounded-2xl border-2 border-stone-200 p-4 transition h-full">
+                <div class="flex items-center justify-between mb-1.5">
+                  <span class="font-extrabold text-sm text-stone-900">Experiencia media</span>
+                  <span class="exp-dot w-4 h-4 rounded-full border-2 border-stone-300"></span>
+                </div>
+                <p class="text-xs text-stone-600">Entre 6 meses y 2 años en cosecha, desnabe o abono.</p>
+              </div>
+            </label>
+
+            <label class="cursor-pointer">
+              <input type="radio" name="experiencia" value="Trabajo agrícola en campo abierto (aprendiz en invernadero)" class="exp-radio sr-only">
+              <div class="exp-card rounded-2xl border-2 border-stone-200 p-4 transition h-full">
+                <div class="flex items-center justify-between mb-1.5">
+                  <span class="font-extrabold text-sm text-stone-900">Agricultor de campo</span>
+                  <span class="exp-dot w-4 h-4 rounded-full border-2 border-stone-300"></span>
+                </div>
+                <p class="text-xs text-stone-600">Sé trabajar duro en agricultura y aguanto el calor de 29 °C.</p>
+              </div>
+            </label>
+          </div>
+        </div>
+
+        <!-- Labores que domina -->
+        <div class="space-y-4">
+          <div class="flex flex-wrap items-center justify-between gap-2">
+            <h3 class="text-sm font-extrabold uppercase tracking-wider text-emerald-800 flex items-center gap-2">
+              <span class="w-6 h-6 rounded-full bg-emerald-100 text-emerald-800 inline-flex items-center justify-center text-xs">3</span>
+              ¿Qué labores sabes hacer bien? *
+            </h3>
+            <span class="text-xs text-stone-500 font-semibold">Toca todas las que domines</span>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3" id="contenedorLabores">
+            <button type="button" data-labor="Cosecha y selección de tomate" class="task-chip selected flex items-center justify-between px-4 py-3.5 rounded-2xl border-2 border-stone-200 bg-stone-50 text-left text-sm font-bold text-stone-800 transition">
+              <span>🍅 Cosecha y selección</span>
+              <span class="chip-check w-5 h-5 rounded-md border border-stone-300 flex items-center justify-center text-xs font-extrabold">✓</span>
+            </button>
+
+            <button type="button" data-labor="Deñavitar / desnabar y despunte" class="task-chip selected flex items-center justify-between px-4 py-3.5 rounded-2xl border-2 border-stone-200 bg-stone-50 text-left text-sm font-bold text-stone-800 transition">
+              <span>✂️ Deñavitar / Desnabar</span>
+              <span class="chip-check w-5 h-5 rounded-md border border-stone-300 flex items-center justify-center text-xs font-extrabold">✓</span>
+            </button>
+
+            <button type="button" data-labor="Poner abono y revisar riego" class="task-chip selected flex items-center justify-between px-4 py-3.5 rounded-2xl border-2 border-stone-200 bg-stone-50 text-left text-sm font-bold text-stone-800 transition">
+              <span>🌱 Poner abono y riego</span>
+              <span class="chip-check w-5 h-5 rounded-md border border-stone-300 flex items-center justify-center text-xs font-extrabold">✓</span>
+            </button>
+
+            <button type="button" data-labor="Tutorado y descuelgue de plantas" class="task-chip flex items-center justify-between px-4 py-3.5 rounded-2xl border-2 border-stone-200 bg-stone-50 text-left text-sm font-bold text-stone-800 transition">
+              <span>🧵 Tutorado y descuelgue</span>
+              <span class="chip-check w-5 h-5 rounded-md border border-stone-300 flex items-center justify-center text-xs font-extrabold">✓</span>
+            </button>
+
+            <button type="button" data-labor="Deshoje y limpieza de surcos" class="task-chip flex items-center justify-between px-4 py-3.5 rounded-2xl border-2 border-stone-200 bg-stone-50 text-left text-sm font-bold text-stone-800 transition">
+              <span>🍃 Deshoje y limpieza</span>
+              <span class="chip-check w-5 h-5 rounded-md border border-stone-300 flex items-center justify-center text-xs font-extrabold">✓</span>
+            </button>
+
+            <button type="button" data-labor="Polinización de flores" class="task-chip flex items-center justify-between px-4 py-3.5 rounded-2xl border-2 border-stone-200 bg-stone-50 text-left text-sm font-bold text-stone-800 transition">
+              <span>🌼 Polinización de flores</span>
+              <span class="chip-check w-5 h-5 rounded-md border border-stone-300 flex items-center justify-center text-xs font-extrabold">✓</span>
+            </button>
+
+            <button type="button" data-labor="Monitoreo de plagas y trampas" class="task-chip flex items-center justify-between px-4 py-3.5 rounded-2xl border-2 border-stone-200 bg-stone-50 text-left text-sm font-bold text-stone-800 transition">
+              <span>🔍 Plagas y trampas</span>
+              <span class="chip-check w-5 h-5 rounded-md border border-stone-300 flex items-center justify-center text-xs font-extrabold">✓</span>
+            </button>
+
+            <button type="button" data-labor="Manejo de cortinas y ventilación" class="task-chip flex items-center justify-between px-4 py-3.5 rounded-2xl border-2 border-stone-200 bg-stone-50 text-left text-sm font-bold text-stone-800 transition">
+              <span>🪟 Cortinas y ventilación</span>
+              <span class="chip-check w-5 h-5 rounded-md border border-stone-300 flex items-center justify-center text-xs font-extrabold">✓</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Disponibilidad y Observación -->
+        <div class="grid sm:grid-cols-2 gap-4">
+          <div>
+            <label for="disponibilidad" class="block text-sm font-bold text-stone-800 mb-1.5">¿Cuándo puedes empezar?</label>
+            <select id="disponibilidad" class="w-full rounded-xl border border-stone-300 bg-stone-50/70 px-4 py-3.5 text-sm font-semibold focus:bg-white focus:border-emerald-600 outline-none">
+              <option value="De inmediato (mañana mismo)">De inmediato (mañana mismo)</option>
+              <option value="Esta misma semana">Esta misma semana</option>
+              <option value="El próximo lunes">El próximo lunes</option>
+            </select>
+          </div>
+
+          <div>
+            <label for="nota" class="block text-sm font-bold text-stone-800 mb-1.5">Observación adicional (opcional)</label>
+            <input type="text" id="nota" placeholder="Ej. Tengo moto propia / Disponibilidad completa" class="w-full rounded-xl border border-stone-300 bg-stone-50/70 px-4 py-3.5 text-sm font-medium focus:bg-white focus:border-emerald-600 outline-none">
+          </div>
+        </div>
+
+        <!-- Confirmación Obligatoria del Calor -->
+        <div class="bg-amber-50 border-2 border-amber-300 rounded-2xl p-4 sm:p-5">
+          <label class="flex items-start gap-3.5 cursor-pointer">
+            <input type="checkbox" id="aceptoCalor" class="mt-1 w-5 h-5 rounded border-amber-400 text-rose-600 focus:ring-rose-500 shrink-0">
+            <span class="text-sm text-stone-800 leading-relaxed">
+              <strong>Confirmo que conozco las condiciones del trabajo:</strong> Sé que el trabajo es dentro de invernaderos en la <strong>Comunidad San Juan del Inca (Pimampiro)</strong> donde la temperatura llega a <strong>29 °C de calor</strong>, y estoy en condiciones físicas para realizar cosecha, deñavitado/desnabe y abonado. *
+            </span>
+          </label>
+        </div>
+
+        <!-- Mensaje de Error -->
+        <div id="alertaError" class="hidden bg-rose-50 border border-rose-300 text-rose-800 text-sm font-bold px-4 py-3.5 rounded-xl"></div>
+
+        <!-- Botón Enviar -->
+        <button type="submit" class="w-full bg-gradient-to-r from-rose-500 via-orange-500 to-amber-500 hover:from-rose-600 hover:to-amber-600 text-white font-extrabold text-base sm:text-lg py-4 px-6 rounded-2xl shadow-lg shadow-orange-500/25 transition transform active:scale-[0.99] flex items-center justify-center gap-2.5">
+          <span>Registrar Ficha y Preparar Envío</span>
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+        </button>
+      </form>
+
+      <!-- Resultado Listo para WhatsApp -->
+      <div id="resultadoPostulacion" class="hidden border-t border-stone-200 bg-emerald-50/80 p-6 sm:p-10 space-y-5">
+        <div class="flex items-center gap-3">
+          <div class="w-12 h-12 rounded-2xl bg-emerald-600 text-white flex items-center justify-center text-xl font-extrabold shadow">✓</div>
+          <div>
+            <h3 class="text-xl font-extrabold text-stone-900">¡Ficha lista para enviar!</h3>
+            <p class="text-sm text-stone-600">Toca el botón verde para enviarla directo por WhatsApp al <strong>+593 99 779 2661</strong>.</p>
+          </div>
+        </div>
+
+        <pre id="textoResumen" class="bg-white border border-emerald-200 rounded-2xl p-4 text-xs sm:text-sm text-stone-800 whitespace-pre-wrap font-sans leading-relaxed shadow-inner"></pre>
+
+        <div class="flex flex-col sm:flex-row gap-3">
+          <a id="btnWhatsappDirecto" href="#" target="_blank" rel="noopener noreferrer" class="flex-1 bg-[#25D366] hover:bg-[#1ebe5d] text-white font-extrabold py-4 px-6 rounded-2xl shadow-md text-center text-sm sm:text-base flex items-center justify-center gap-2 transition">
+            <span>📲 Enviar al +593 99 779 2661</span>
+          </a>
+          <button type="button" id="btnCopiarTexto" class="bg-stone-900 hover:bg-stone-800 text-white font-bold py-4 px-6 rounded-2xl text-sm transition">
+            Copiar Ficha
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pie de Página -->
+  <footer class="bg-stone-900 text-stone-400 py-12 px-4 sm:px-6 text-center text-xs sm:text-sm">
+    <div class="max-w-4xl mx-auto space-y-2.5">
+      <p class="text-white font-extrabold text-base">Producción de Tomate bajo Invernadero — Comunidad San Juan del Inca</p>
+      <p>El Inca • Cantón Pimampiro, Provincia de Imbabura, Ecuador</p>
+      <p class="pt-1">
+        Contacto directo: <a href="tel:+593997792661" class="text-amber-300 font-bold hover:underline">+593 99 779 2661</a>
+      </p>
+    </div>
+  </footer>
+
+  <script>
+    // Cambiar entre Vista Satélite y Mapa Vial en San Juan del Inca
+    function cambiarVistaMapa(tipo) {
+      const iframe = document.getElementById('iframeMapaInca');
+      const btnSat = document.getElementById('btnSatelite');
+      const btnMap = document.getElementById('btnMapa');
+      iframe.src = `https://maps.google.com/maps?q=0.3441558,-77.9601746&t=${tipo}&z=15&output=embed`;
+
+      if (tipo === 'k') {
+        btnSat.className = 'px-3.5 py-2 rounded-lg text-xs font-extrabold bg-emerald-600 text-white shadow-sm transition';
+        btnMap.className = 'px-3.5 py-2 rounded-lg text-xs font-extrabold text-stone-600 hover:text-stone-900 transition';
+      } else {
+        btnMap.className = 'px-3.5 py-2 rounded-lg text-xs font-extrabold bg-emerald-600 text-white shadow-sm transition';
+        btnSat.className = 'px-3.5 py-2 rounded-lg text-xs font-extrabold text-stone-600 hover:text-stone-900 transition';
+      }
+    }
+
+    // Selección táctil de labores
+    document.querySelectorAll('.task-chip').forEach(btn => {
+      btn.addEventListener('click', () => {
+        btn.classList.toggle('selected');
+      });
+    });
+
+    // Validación y generación de ficha para WhatsApp (+593 99 779 2661)
+    const form = document.getElementById('fichaPostulacion');
+    const alertaError = document.getElementById('alertaError');
+    const resultadoBox = document.getElementById('resultadoPostulacion');
+    const textoResumen = document.getElementById('textoResumen');
+    const btnWhatsapp = document.getElementById('btnWhatsappDirecto');
+    const btnCopiar = document.getElementById('btnCopiarTexto');
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      alertaError.classList.add('hidden');
+
+      const nombres = document.getElementById('nombres').value.trim();
+      const telefono = document.getElementById('telefono').value.trim();
+      const cedula = document.getElementById('cedula').value.trim();
+      const sector = document.getElementById('sector').value.trim();
+      const disponibilidad = document.getElementById('disponibilidad').value;
+      const nota = document.getElementById('nota').value.trim();
+      const aceptoCalor = document.getElementById('aceptoCalor').checked;
+      const experiencia = document.querySelector('input[name="experiencia"]:checked').value;
+
+      const laboresSeleccionadas = Array.from(document.querySelectorAll('.task-chip.selected'))
+        .map(el => el.getAttribute('data-labor'));
+
+      if (!nombres || !telefono || !cedula || !sector) {
+        mostrarError('Por favor completa tus nombres, celular, cédula y comunidad donde vives.');
+        return;
+      }
+
+      if (!/^\d{10}$/.test(cedula)) {
+        mostrarError('Ingresa un número de cédula ecuatoriana válido de 10 dígitos.');
+        return;
+      }
+
+      if (laboresSeleccionadas.length === 0) {
+        mostrarError('Selecciona al menos una labor que sepas realizar dentro del invernadero.');
+        return;
+      }
+
+      if (!aceptoCalor) {
+        mostrarError('Marca la casilla confirmando que conoces y resistes los 29 °C dentro del invernadero.');
+        return;
+      }
+
+      const mensaje =
+`🌱 *POSTULACIÓN INVERNADEROS DE TOMATE*
+📍 *Lugar:* Comunidad San Juan del Inca (Pimampiro, Imbabura)
+
+👤 *Nombre:* ${nombres}
+🪪 *Cédula:* ${cedula}
+📱 *Celular:* ${telefono}
+🏡 *Sector donde vive:* ${sector}
+🛠️ *Experiencia:* ${experiencia}
+✅ *Labores que domina:*
+${laboresSeleccionadas.map(l => `   • ${l}`).join('\n')}
+📅 *Disponibilidad:* ${disponibilidad}${nota ? `\n📝 *Observación:* ${nota}` : ''}
+🌡️ *Condición térmica:* Confirma resistencia al trabajo bajo plástico a 29 °C.`;
+
+      textoResumen.textContent = mensaje;
+      btnWhatsapp.href = `https://wa.me/593997792661?text=${encodeURIComponent(mensaje)}`;
+
+      resultadoBox.classList.remove('hidden');
+      resultadoBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    });
+
+    function mostrarError(msg) {
+      alertaError.textContent = '⚠️ ' + msg;
+      alertaError.classList.remove('hidden');
+      alertaError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+
+    btnCopiar.addEventListener('click', () => {
+      navigator.clipboard.writeText(textoResumen.textContent).then(() => {
+        const original = btnCopiar.textContent;
+        btnCopiar.textContent = '¡Copiado! ✓';
+        setTimeout(() => btnCopiar.textContent = original, 2200);
+      });
+    });
+  </script>
+</body>
+</html>
+
+```
